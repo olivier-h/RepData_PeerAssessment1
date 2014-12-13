@@ -216,16 +216,40 @@ hr {
 <p>The dplyr and ggplot2 libraries will be used for this analyses</p>
 
 <pre><code class="r">library(dplyr)
-library(ggplot2)
 </code></pre>
 
-<p>The data is read and put in a dataframe.</p>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     intersect, setdiff, union
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</code></pre>
+
+<pre><code class="r">library(ggplot2)
+</code></pre>
+
+<pre><code>## Find out what&#39;s changed in ggplot2 with
+## news(Version == &quot;1.0.0&quot;, package = &quot;ggplot2&quot;)
+</code></pre>
+
+<p>The zip file containing the data is in the repo, it has to be decompressed and named &ldquo;activity.zip&rdquo; in the working directory.
+Then the data is read and put in a dataframe.</p>
 
 <pre><code class="r">dataset = read.csv(&quot;activity.csv&quot;, stringsAsFactors = FALSE)
 </code></pre>
 
 <p>The interval variable is not continuous, it jumps from 55 to 100 every hour.
-So the real number of minutes is calculated to have a continuous variable for time series.</p>
+So the real number of minutes is calculated to have a continuous variable for time series.
+100 is converted to 60, 105 to 65 and so on.</p>
 
 <pre><code class="r">dataset$minutes = floor(dataset$interval / 100) * 60 + (dataset$interval - floor(dataset$interval / 100) * 100)
 </code></pre>
@@ -278,7 +302,8 @@ datasetNotNAMean = group_by(datasetNotNAMean, minutes)
 datasetNotNAMean = summarise_each(datasetNotNAMean, funs(mean))
 </code></pre>
 
-<p>Finally the average number of steps in each minutes interval can be plotted.</p>
+<p>Finally the average number of steps in each minutes interval can be plotted.
+The x-axis is labelled with corresponding hours.</p>
 
 <pre><code class="r">plot = qplot(
     minutes,
@@ -421,7 +446,8 @@ datasetFilledMean = group_by(datasetFilledMean, minutes, weekInfo)
 datasetFilledMean = summarise_each(datasetFilledMean, funs(mean))
 </code></pre>
 
-<p>Finally the average number of steps in each minutes interval for each type of day can be plotted.</p>
+<p>Finally the average number of steps in each minutes interval for each type of day can be plotted.
+The x-axis is labelled with corresponding hours.</p>
 
 <pre><code class="r">plot = qplot(
     minutes,

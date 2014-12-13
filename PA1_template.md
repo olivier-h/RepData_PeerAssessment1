@@ -23,10 +23,36 @@ The dplyr and ggplot2 libraries will be used for this analyses
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:lubridate':
+## 
+##     intersect, setdiff, union
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(ggplot2)
 ```
 
-The data is read and put in a dataframe.
+```
+## Find out what's changed in ggplot2 with
+## news(Version == "1.0.0", package = "ggplot2")
+```
+
+The zip file containing the data is in the repo, it has to be decompressed and named "activity.zip" in the working directory.
+Then the data is read and put in a dataframe.
 
 ```r
 dataset = read.csv("activity.csv", stringsAsFactors = FALSE)
@@ -34,6 +60,7 @@ dataset = read.csv("activity.csv", stringsAsFactors = FALSE)
 
 The interval variable is not continuous, it jumps from 55 to 100 every hour.
 So the real number of minutes is calculated to have a continuous variable for time series.
+100 is converted to 60, 105 to 65 and so on.
 
 ```r
 dataset$minutes = floor(dataset$interval / 100) * 60 + (dataset$interval - floor(dataset$interval / 100) * 100)
@@ -96,6 +123,7 @@ datasetNotNAMean = summarise_each(datasetNotNAMean, funs(mean))
 ```
 
 Finally the average number of steps in each minutes interval can be plotted.
+The x-axis is labelled with corresponding hours.
 
 ```r
 plot = qplot(
@@ -256,6 +284,7 @@ datasetFilledMean = summarise_each(datasetFilledMean, funs(mean))
 ```
 
 Finally the average number of steps in each minutes interval for each type of day can be plotted.
+The x-axis is labelled with corresponding hours.
 
 ```r
 plot = qplot(
