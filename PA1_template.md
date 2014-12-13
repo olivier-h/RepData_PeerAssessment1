@@ -19,39 +19,14 @@ The working directory is set.
 setwd("E:\\BIG DATA\\Coursera - Data Scientist\\05 - Reproducible Research\\PA1")
 ```
 
-The dplyr and ggplot2 libraries will be used for this analyses
+The dplyr and ggplot2 libraries will be used for this analyses.
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:lubridate':
-## 
-##     intersect, setdiff, union
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(ggplot2)
 ```
 
-```
-## Find out what's changed in ggplot2 with
-## news(Version == "1.0.0", package = "ggplot2")
-```
-
-The zip file containing the data is in the repo, it has to be decompressed and named "activity.zip" in the working directory.
+The zip file containing the data is in the repo, it has to be decompressed and named "activity.csv" in the working directory.
 Then the data is read and put in a dataframe.
 
 ```r
@@ -87,7 +62,7 @@ Finally an histogram of total number of steps per day can be plotted.
 ```r
 hist(datasetNotNASumDay$steps,
 	xlab = "Total number of steps", 
-	ylab = "Frequency", 
+	ylab = "Frequency (number of days)", 
 	main = "Histogram of total number of steps in a day")
 ```
 
@@ -131,7 +106,7 @@ plot = qplot(
 	steps,
 	data = datasetNotNAMean,
 	geom = "line",
-	xlab = "Interval (hours)",
+	xlab = "Hour",
 	ylab = "Average number of steps",
 	main = "Average number of steps in a day")
 scale_axis =  scale_x_continuous(breaks = seq(0, 24 * 60, 60), labels = 0:24)
@@ -228,7 +203,7 @@ Finally an histogram of total number of steps per day can be plotted.
 ```r
 hist(datasetFilledSumDay$steps,
 	xlab = "Total number of steps", 
-	ylab = "Frequency", 
+	ylab = "Frequency (number of days)", 
 	main = "Total number of steps in a day")
 ```
 
@@ -293,7 +268,7 @@ plot = qplot(
 	data = datasetFilledMean,
 	facets = weekInfo ~.,
 	geom = "line",
-	xlab = "Interval (hours)",
+	xlab = "Hour",
 	ylab = "Average number of steps",
 	main = "Average number of steps in a day by type of day")
 scale_axis =  scale_x_continuous(breaks = seq(0, 24 * 60, 60), labels = 0:24)
